@@ -1,0 +1,15 @@
+{% extends 'admin_panel/base_admin.html' %}
+{% block title %}Sahifani o'chirish - Admin{% endblock %}
+{% block content %}
+<div class="col-lg-6 mx-auto">
+    <h2>Sahifani o'chirish</h2>
+    <div class="alert alert-danger mt-4">
+        <i class="fas fa-exclamation-triangle me-2"></i> Siz rostdan ham <strong>"{{ object.title }}"</strong> sahifasini o'chirmoqchimisiz?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Ha, o'chirish</button>
+        <a href="{% url 'admin_panel:page_list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>
+{% endblock %}

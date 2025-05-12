@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Bosh sahifa" %} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {# --- CAROUSEL --- #}
+    {% if carousel_news %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-10">
+            <div id="newsCarousel" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    {% for news_item in carousel_news %}
+                    <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    {% for news_item in carousel_news %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="d-block w-100" style="max-height:420px; object-fit:cover;" alt="{{ news_item.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default_news.jpg' %}" class="d-block w-100" style="max-height:420px; object-fit:cover;" alt="Default News Image">
+                        {% endif %}
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded-4 px-4 py-3 mb-4 shadow-lg animate__animated animate__fadeInUp">
+                            <h4 class="fw-bold text-warning mb-2">{{ news_item.title }}</h4>
+                            <a href="{{ news_item.get_absolute_url }}" class="btn btn-warning btn-sm px-4 shadow mt-2">{% trans "Batafsil" %}</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {# --- 8 ta yangilik card (4x2 grid) --- #}
+    {% if news_cards %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="mb-4 text-center text-primary">{% trans "So'nggi Yangiliklar" %}</h2>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+        {% for news_item in news_cards %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4">
+                {% if news_item.image %}
+                <img src="{{ news_item.image.url }}" class="card-img-top rounded-top-4" style="height:180px; object-fit:cover;" alt="{{ news_item.title }}">
+                {% else %}
+                <img src="{% static 'images/default_news.jpg' %}" class="card-img-top rounded-top-4" style="height:180px; object-fit:cover;" alt="Default News Image">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ news_item.title }}</h5>
+                    <p class="card-text text-muted small mb-2">{{ news_item.published_date|date:"d F Y" }}</p>
+                    <div class="mb-3 flex-grow-1"></div>
+                    <a href="{{ news_item.get_absolute_url }}" class="btn btn-outline-primary btn-sm mt-auto align-self-start">{% trans "Batafsil" %}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {# --- Shifokorlar --- #}
+    {% if featured_doctors %}
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h2 class="mb-4 text-center text-success">{% trans "Oʼzbekiston kardiologlari" %}</h2>
+        </div>
+        {% for doctor in featured_doctors %}
+        <div class="col-md-3 mb-3">
+            <div class="card text-center border-0 shadow-sm rounded-4">
+                {% if doctor.photo %}
+                <img src="{{ doctor.photo.url }}" class="card-img-top rounded-circle mx-auto mt-3 border border-3 border-success" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ doctor.full_name }}">
+                {% else %}
+                <img src="{% static 'images/default_doctor.png' %}" class="card-img-top rounded-circle mx-auto mt-3 border border-3 border-success" style="width: 150px; height: 150px; object-fit: cover;" alt="Default Doctor Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ doctor.full_name }}</h5>
+                    <p class="card-text">{{ doctor.position }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-12 text-center">
+            <a href="#" class="btn btn-success mt-2 px-5">{% trans "Barcha shifokorlar" %}</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

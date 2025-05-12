@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ page_title }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-5"><i class="fas fa-newspaper me-2" style="color: #007bff;"></i>{{ page_title }}</h1>
+        </div>
+        <div class="col-md-4 align-self-center">
+            {# Kategoriya bo'yicha filterlash uchun dropdown #}
+            {% if categories %}
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle w-100" type="button" id="categoryFilter" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-tags me-1"></i> {% trans "Kategoriyalar" %}
+                </button>
+                <ul class="dropdown-menu w-100" aria-labelledby="categoryFilter">
+                    <li><a class="dropdown-item" href="{% url 'news:news_list' %}">{% trans "Barcha yangiliklar" %}</a></li>
+                    {% for category in categories %}
+                    <li><a class="dropdown-item" href="{% url 'news:news_list' %}?category={{ category.slug }}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for item in news_items %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm news-card">
+                <a href="{{ item.get_absolute_url }}">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top news-card-img" alt="{{ item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default_news_cardiology.png' %}" class="card-img-top news-card-img" alt="{% trans 'Yangilik rasmi yo`q' %}">
+                    {% endif %}
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><a href="{{ item.get_absolute_url }}" class="text-decoration-none stretched-link">{{ item.title }}</a></h5>
+                    {% if item.category %}
+                    <small class="text-muted mb-2"><i class="fas fa-tag me-1" style="color: #17a2b8;"></i> {{ item.category.name }}</small>
+                    {% endif %}
+                    <p class="card-text text-muted flex-grow-1">{{ item.content|striptags|truncatewords_html:20 }}</p> {# content dan HTML teglarni olib tashlab, qisqartirish #}
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <small class="text-muted"><i class="fas fa-calendar-alt me-1" style="color: #28a745;"></i> {{ item.published_date|date:"d F Y" }}</small>
+                    <small class="text-muted float-end"><i class="fas fa-eye me-1" style="color: #ffc107;"></i> {{ item.views_count }}</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p class="lead">{% trans "Hozircha yangiliklar mavjud emas." %}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Pagination #}
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&laquo;</span>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&raquo;</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{# Qo'shimcha CSS stillar uchun #}
+<style>
+    .news-card {
+        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+    }
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .news-card-img {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+{% endblock content %}

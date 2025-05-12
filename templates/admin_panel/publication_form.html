@@ -1,0 +1,60 @@
+{% extends 'admin_panel/base_admin.html' %}
+{% load i18n custom_filters %}
+{% block title %}Nashr {% if object %}tahrirlash{% else %}qo'shish{% endif %} - Admin{% endblock %}
+{% block content %}
+<div class="col-lg-8 mx-auto">
+    <h2>{% if object %}Nashrni tahrirlash{% else %}Nashr qo'shish{% endif %}</h2>
+    <form method="post" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
+        {# Umumiy maydonlar (faqat bir marta, default til formidan) #}
+        {% with main_form=forms|get_item:LANGUAGES.0.0 %}
+            {% for field in main_form.visible_fields %}
+                {% if field.name not in 'title,short_description,content' %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}{{ field }}
+                        {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text }}</small>{% endif %}
+                        {% for error in field.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+        <ul class="nav nav-tabs mb-3" id="langTabs" role="tablist">
+            {% for lang_code, lang_name in LANGUAGES %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ lang_code }}" data-bs-toggle="tab" data-bs-target="#content-{{ lang_code }}" type="button" role="tab">
+                        {{ lang_name }}
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for lang_code, lang_name in LANGUAGES %}
+                <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="content-{{ lang_code }}" role="tabpanel">
+                    {% with form=forms|get_item:lang_code %}
+                        {% if form %}
+                            {% for field in form.visible_fields %}
+                                {% if field.name in 'title,short_description,content' %}
+                                    <div class="mb-3">
+                                        {{ field.label_tag }}{{ field }}
+                                        {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text }}</small>{% endif %}
+                                        {% for error in field.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Saqlash</button>
+        <a href="{% url 'admin_panel:publication_list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+    {% for lang_code, lang_name in LANGUAGES %}
+        {% with form=forms|get_item:lang_code %}
+            {{ form.media }}
+        {% endwith %}
+    {% endfor %}
+{% endblock %}

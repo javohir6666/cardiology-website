@@ -1,0 +1,164 @@
+{% load static %}
+{% load i18n %}
+{% load mptt_tags %}
+{% load custom_filters %} {# active_link va filename filterlari uchun #}
+
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANGUAGE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% trans "Kardiologiya Markazi" %}{% endblock title %}</title>
+
+    {# Bootstrap CSS #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    {# Font Awesome CSS #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {# Sizning maxsus CSS faylingiz #}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock extra_css %}
+</head>
+<body>
+    <header class="sticky-top shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="{% url 'core:home' %}" style="color: #007bff;">
+                    <i class="fas fa-heart-pulse me-2"></i>{% trans "CardioMed.uz" %} {# Sayt nomi yoki logotipi #}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarNav" aria-controls="mainNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavbarNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                        {# Asosiy sahifa linki #}
+                        <li class="nav-item">
+                            <a class="nav-link {% active_link request.path 'core:home' %}" aria-current="page" href="{% url 'core:home' %}">
+                                <i class="fas fa-home-alt me-1 d-lg-none d-xl-inline-block"></i>{% trans "Bosh sahifa" %}
+                            </a>
+                        </li>
+
+                        {# Dinamik menyu (asosiy menyu) #}
+                        {% if menu_items_main %}
+                            {% recursetree menu_items_main %}
+                                {% if node.is_leaf_node %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% active_link request.path node.get_link %}" href="{{ node.get_link }}">
+                                            {{ node.title }}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle {% active_link request.path node.get_link True %}" href="{{ node.get_link }}" id="navbarDropdown{{ node.pk }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ node.title }}
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ node.pk }}">
+                                            {{ children }} {# Bu yerda ichki elementlar <li class="dropdown-item"><a>...</a></li> ko'rinishida bo'lishi kerak #}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            {% endrecursetree %}
+                        {% endif %}
+
+                        {# Til almashtirish #}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-language me-1"></i>
+                                {% get_language_info for CURRENT_LANGUAGE as lang_info %}
+                                {{ lang_info.name_local }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                                {% for language in languages %}
+                                    {% if language.code != CURRENT_LANGUAGE %}
+                                    <li>
+                                        <form action="{% url 'set_language' %}" method="post" class="d-inline">
+                                            {% csrf_token %}
+                                            {# Joriy sahifaning til prefiksisiz qismini olish #}
+                                            {% if request.resolver_match and request.resolver_match.route %}
+                                                {# Agar i18n_patterns ishlatilayotgan bo'lsa, til prefiksini olib tashlaymiz #}
+                                                {% if request.path|slice:":3" == "/"|add:CURRENT_LANGUAGE|add:"/" %}
+                                                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}">
+                                                {% else %}
+                                                     <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                                                {% endif %}
+                                            {% else %}
+                                                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                                            {% endif %}
+                                            <input name="language" type="hidden" value="{{ language.code }}">
+                                            <button type="submit" class="dropdown-item">
+                                                {{ language.name_local }} ({{ language.code|upper }})
+                                            </button>
+                                        </form>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-shrink-0 py-4">
+        {% block content %}
+        {# Sahifa kontenti shu yerda ko'rsatiladi #}
+        {{ block.super }}
+        {% endblock content %}
+    </main>
+
+    <footer class="footer mt-auto py-4 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5><i class="fas fa-heart-pulse me-2"></i>{% trans "CardioMed" %}</h5>
+                    <p class="small">{% trans "Sizning sog'ligingiz bizning ustuvor vazifamizdir. Professional kardiologik yordam." %}</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>{% trans "Tezkor havolalar" %}</h5>
+                    <ul class="list-unstyled">
+                        {# Footer menyusi #}
+                        {% if menu_items_footer %}
+                             {% recursetree menu_items_footer %}
+                                <li>
+                                    <a href="{{ node.get_link }}" class="text-white-50 text-decoration-none hover-light">{{ node.title }}</a>
+                                </li>
+                            {% endrecursetree %}
+                        {% else %}
+                            <li><a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none hover-light">{% trans "Bosh sahifa" %}</a></li>
+                            {# Boshqa muhim linklarni qo'shishingiz mumkin #}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>{% trans "Bog'lanish" %}</h5>
+                    {# Bu ma'lumotlarni admin panelidan sozlanadigan qilish mumkin #}
+                    <address class="small">
+                        <i class="fas fa-map-marker-alt me-2"></i>{% trans "O'zbekiston, Toshkent sh., Kardiologiya ko'chasi, 1-uy" %}<br>
+                        <i class="fas fa-phone me-2"></i><a href="tel:+998712000000" class="text-white-50 text-decoration-none hover-light">+998 71 200-00-00</a><br>
+                        <i class="fas fa-envelope me-2"></i><a href="mailto:info@cardiomed.uz" class="text-white-50 text-decoration-none hover-light">info@cardiomed.uz</a>
+                    </address>
+                </div>
+            </div>
+            <hr class="bg-white-50">
+            <div class="text-center small">
+                &copy; {% now "Y" %} {% trans "CardioMed. Barcha huquqlar himoyalangan." %}
+                {% block footer_extra_links %}
+                {# <a href="#" class="text-white-50 ms-2">{% trans "Maxfiylik siyosati" %}</a> #}
+                {% endblock footer_extra_links %}
+            </div>
+        </div>
+    </footer>
+
+    {# Bootstrap JS Bundle (Popper.js ni o'z ichiga oladi) #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

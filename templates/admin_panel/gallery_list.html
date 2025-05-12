@@ -1,0 +1,47 @@
+{% extends 'admin_panel/base_admin.html' %}
+{% block title %}Galereya - Admin{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Galereya</h2>
+    <a href="{% url 'admin_panel:gallery_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Rasm qo'shish</a>
+</div>
+<div class="row g-4">
+    {% for image in gallery_list %}
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ image.image.url }}" class="card-img-top" style="height:180px; object-fit:cover;" alt="{{ image.title }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ image.title }}</h6>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'admin_panel:gallery_edit' image.pk %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'admin_panel:gallery_delete' image.pk %}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted">Rasmlar topilmadi.</div>
+    {% endfor %}
+</div>
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

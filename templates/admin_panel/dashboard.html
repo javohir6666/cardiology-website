@@ -1,0 +1,54 @@
+{% extends 'admin_panel/base_admin.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Admin Panel Dashboard</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-newspaper fa-2x text-primary mb-2"></i>
+                    <h5 class="card-title">Yangiliklar</h5>
+                    <a href="{% url 'admin_panel:news_list' %}" class="btn btn-outline-primary btn-sm">Barcha yangiliklar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-file-alt fa-2x text-success mb-2"></i>
+                    <h5 class="card-title">Sahifalar</h5>
+                    <a href="{% url 'admin_panel:page_list' %}" class="btn btn-outline-success btn-sm">Barcha sahifalar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-2x text-info mb-2"></i>
+                    <h5 class="card-title">Nashrlar</h5>
+                    <a href="{% url 'admin_panel:publication_list' %}" class="btn btn-outline-info btn-sm">Barcha nashrlar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-md fa-2x text-warning mb-2"></i>
+                    <h5 class="card-title">Shifokorlar</h5>
+                    <a href="{% url 'admin_panel:doctor_list' %}" class="btn btn-outline-warning btn-sm">Barcha shifokorlar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mt-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-images fa-2x text-danger mb-2"></i>
+                    <h5 class="card-title">Galereya</h5>
+                    <a href="{% url 'admin_panel:gallery_list' %}" class="btn btn-outline-danger btn-sm">Barcha rasmlar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

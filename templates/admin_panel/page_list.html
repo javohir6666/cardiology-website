@@ -1,0 +1,56 @@
+{% extends 'admin_panel/base_admin.html' %}
+{% block title %}Sahifalar - Admin{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Sahifalar</h2>
+    <a href="{% url 'admin_panel:page_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Sahifa qo'shish</a>
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sarlavha</th>
+            <th>Slug</th>
+            <th>Holat</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for page in page_list %}
+        <tr>
+            <td>{{ page.id }}</td>
+            <td>{{ page.title }}</td>
+            <td>{{ page.slug }}</td>
+            <td>{% if page.is_published %}<span class="badge bg-success">Faol</span>{% else %}<span class="badge bg-secondary">NoFaol</span>{% endif %}</td>
+            <td>
+                <a href="{% url 'admin_panel:page_edit' page.pk %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'admin_panel:page_delete' page.pk %}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center">Sahifalar topilmadi.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

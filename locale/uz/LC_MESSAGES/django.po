@@ -1,0 +1,512 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-12 02:20+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\cardio_project\settings.py:128
+msgid "Uzbek"
+msgstr ""
+
+#: .\cardio_project\settings.py:129
+msgid "Russian"
+msgstr ""
+
+#: .\cardio_project\settings.py:130
+msgid "English"
+msgstr ""
+
+#: .\core\models.py:8
+msgid "Rasm"
+msgstr ""
+
+#: .\core\models.py:9
+msgid "Rasm nomi"
+msgstr ""
+
+#: .\core\models.py:10
+msgid "Yuklangan vaqti"
+msgstr ""
+
+#: .\core\models.py:13
+msgid "Galereya rasmi"
+msgstr ""
+
+#: .\core\models.py:14
+msgid "Galereya rasmlari"
+msgstr ""
+
+#: .\doctors\models.py:8
+msgid "Full Name"
+msgstr ""
+
+#: .\doctors\models.py:9
+msgid "Position/Specialty"
+msgstr ""
+
+#: .\doctors\models.py:10
+msgid "Biography/Additional Information"
+msgstr ""
+
+#: .\doctors\models.py:12
+msgid "Photo"
+msgstr ""
+
+#: .\doctors\models.py:13
+msgid "Email"
+msgstr ""
+
+#: .\doctors\models.py:14
+msgid "Phone Number"
+msgstr ""
+
+#: .\doctors\models.py:15
+msgid "Years of Experience"
+msgstr ""
+
+#: .\doctors\models.py:19
+msgid "Is Active Staff"
+msgstr ""
+
+#: .\doctors\models.py:20 .\pages\models.py:91
+msgid "Order"
+msgstr ""
+
+#: .\doctors\models.py:20
+msgid "Ro'yxatda chiqish tartibi"
+msgstr ""
+
+#: .\doctors\models.py:27
+msgid "Doctor"
+msgstr ""
+
+#: .\doctors\models.py:28
+msgid "Doctors"
+msgstr ""
+
+#: .\doctors\models.py:32
+msgid "Nomsiz Shifokor"
+msgstr ""
+
+#: .\news\models.py:11 .\publications\models.py:9
+msgid "Category Name"
+msgstr ""
+
+#: .\news\models.py:12 .\news\models.py:38 .\publications\models.py:10
+#: .\publications\models.py:31
+msgid "Slug"
+msgstr ""
+
+#: .\news\models.py:12
+msgid ""
+"URL uchun. Agar bo'sh qoldirilsa, nomidan avtomatik generatsiya qilinadi."
+msgstr ""
+
+#: .\news\models.py:18
+msgid "News Category"
+msgstr ""
+
+#: .\news\models.py:19
+msgid "News Categories"
+msgstr ""
+
+#: .\news\models.py:22 .\publications\models.py:20
+msgid "Nomsiz Kategoriya"
+msgstr ""
+
+#: .\news\models.py:37 .\publications\models.py:30
+msgid "Title"
+msgstr ""
+
+#: .\news\models.py:38
+msgid ""
+"URL uchun. Agar bo'sh qoldirilsa, sarlavhadan avtomatik generatsiya qilinadi."
+msgstr ""
+
+#: .\news\models.py:39 .\publications\models.py:33
+msgid "Content"
+msgstr ""
+
+#: .\news\models.py:40
+msgid "Keywords"
+msgstr ""
+
+#: .\news\models.py:40
+msgid "Vergul bilan ajratilgan kalit so'zlar"
+msgstr ""
+
+#: .\news\models.py:42 .\publications\models.py:37
+msgid "Category"
+msgstr ""
+
+#: .\news\models.py:43
+msgid "Image"
+msgstr ""
+
+#: .\news\models.py:44
+msgid "Published Date"
+msgstr ""
+
+#: .\news\models.py:45 .\pages\models.py:28 .\publications\models.py:43
+msgid "Is Published"
+msgstr ""
+
+#: .\news\models.py:46
+msgid "Views Count"
+msgstr ""
+
+#: .\news\models.py:52 .\news\models.py:53
+msgid "News"
+msgstr ""
+
+#: .\news\models.py:57
+msgid "Nomsiz Yangilik"
+msgstr ""
+
+#: .\pages\models.py:15
+msgid "Page Title"
+msgstr ""
+
+#: .\pages\models.py:16
+msgid "Slug (URL)"
+msgstr ""
+
+#: .\pages\models.py:16
+msgid ""
+"Sahifaning URL manzili, masalan 'biz-haqimizda'. Agar bo'sh qoldirilsa, "
+"sarlavhadan avtomatik generatsiya qilinadi."
+msgstr ""
+
+#: .\pages\models.py:17
+msgid "Page Content"
+msgstr ""
+
+#: .\pages\models.py:18
+msgid "Meta Keywords"
+msgstr ""
+
+#: .\pages\models.py:18
+msgid "SEO uchun kalit so'zlar, vergul bilan ajratilgan."
+msgstr ""
+
+#: .\pages\models.py:19
+msgid "Meta Description"
+msgstr ""
+
+#: .\pages\models.py:19
+msgid "SEO uchun sahifa tavsifi."
+msgstr ""
+
+#: .\pages\models.py:22
+msgid "Template Name"
+msgstr ""
+
+#: .\pages\models.py:26
+msgid ""
+"Agar maxsus shablon ishlatmoqchi bo'lsangiz, uning nomini kiriting (masalan, "
+"'pages/contact_page.html'). Bo'sh qoldirilsa, standart shablon ishlatiladi."
+msgstr ""
+
+#: .\pages\models.py:34
+msgid "Page"
+msgstr ""
+
+#: .\pages\models.py:35
+msgid "Pages"
+msgstr ""
+
+#: .\pages\models.py:38
+msgid "Nomsiz Sahifa"
+msgstr ""
+
+#: .\pages\models.py:84
+msgid "Menu Item Title"
+msgstr ""
+
+#: .\pages\models.py:86
+msgid "Link to Page"
+msgstr ""
+
+#: .\pages\models.py:86
+msgid "Agar menyu bandi saytdagi sahifaga yo'naltirsa, shu yerdan tanlang."
+msgstr ""
+
+#: .\pages\models.py:87
+msgid "Or Custom URL"
+msgstr ""
+
+#: .\pages\models.py:87
+msgid ""
+"Agar menyu bandi tashqi manzilga yoki maxsus URLga yo'naltirsa (masalan, /"
+"yangiliklar/), shu yerga kiriting. 'Link to Page' tanlangan bo'lsa, bu bo'sh "
+"qoldiriladi."
+msgstr ""
+
+#: .\pages\models.py:89
+msgid "Parent Item"
+msgstr ""
+
+#: .\pages\models.py:94
+msgid "Main Menu (Header)"
+msgstr ""
+
+#: .\pages\models.py:95
+msgid "Footer Menu"
+msgstr ""
+
+#: .\pages\models.py:98
+msgid "Menu Location"
+msgstr ""
+
+#: .\pages\models.py:102
+msgid "Bu menyu bandi qaysi menyuda ko'rinishi kerak."
+msgstr ""
+
+#: .\pages\models.py:105
+msgid "Is Active"
+msgstr ""
+
+#: .\pages\models.py:114
+msgid "Menu Item"
+msgstr ""
+
+#: .\pages\models.py:115
+msgid "Menu Items"
+msgstr ""
+
+#: .\pages\models.py:118
+msgid "Nomsiz Menyu Bandi"
+msgstr ""
+
+#: .\publications\models.py:16
+msgid "Publication Category"
+msgstr ""
+
+#: .\publications\models.py:17
+msgid "Publication Categories"
+msgstr ""
+
+#: .\publications\models.py:32
+msgid "Short Description/Abstract"
+msgstr ""
+
+#: .\publications\models.py:35
+msgid "Authors"
+msgstr ""
+
+#: .\publications\models.py:35
+msgid "Vergul bilan ajratilgan mualliflar ro'yxati"
+msgstr ""
+
+#: .\publications\models.py:38
+msgid "Cover Image"
+msgstr ""
+
+#: .\publications\models.py:39
+msgid "File"
+msgstr ""
+
+#: .\publications\models.py:40
+msgid "Publication Year"
+msgstr ""
+
+#: .\publications\models.py:41
+msgid "Publisher"
+msgstr ""
+
+#: .\publications\models.py:44
+msgid "Downloads Count"
+msgstr ""
+
+#: .\publications\models.py:50
+msgid "Publication"
+msgstr ""
+
+#: .\publications\models.py:51
+msgid "Publications"
+msgstr ""
+
+#: .\publications\models.py:55
+msgid "Nomsiz Nashr"
+msgstr ""
+
+#: .\templates\base.html:15
+msgid "Kardiologiya Markazi"
+msgstr ""
+
+#: .\templates\base.html:33
+msgid "CardioMed.uz"
+msgstr ""
+
+#: .\templates\base.html:43 .\templates\base.html:134
+#: .\templates\core\home.html:5
+msgid "Bosh sahifa"
+msgstr ""
+
+#: .\templates\base.html:120
+msgid "CardioMed"
+msgstr ""
+
+#: .\templates\base.html:121
+msgid ""
+"Sizning sog'ligingiz bizning ustuvor vazifamizdir. Professional kardiologik "
+"yordam."
+msgstr ""
+
+#: .\templates\base.html:124
+msgid "Tezkor havolalar"
+msgstr ""
+
+#: .\templates\base.html:140
+msgid "Bog'lanish"
+msgstr ""
+
+#: .\templates\base.html:143
+msgid "O'zbekiston, Toshkent sh., Kardiologiya ko'chasi, 1-uy"
+msgstr ""
+
+#: .\templates\base.html:151
+msgid "CardioMed. Barcha huquqlar himoyalangan."
+msgstr ""
+
+#: .\templates\core\gallery.html:5 .\templates\core\gallery.html:10
+msgid "Rasmlar"
+msgstr ""
+
+#: .\templates\core\home.html:29 .\templates\core\home.html:67
+msgid "Batafsil"
+msgstr ""
+
+#: .\templates\core\home.html:51
+msgid "So'nggi Yangiliklar"
+msgstr ""
+
+#: .\templates\core\home.html:79
+msgid "Oʼzbekiston kardiologlari"
+msgstr ""
+
+#: .\templates\core\home.html:97
+msgid "Barcha shifokorlar"
+msgstr ""
+
+#: .\templates\doctors\doctor_list.html:12
+msgid ""
+"Kardiologiya sohasidagi yuqori malakali mutaxassislarimiz bilan tanishing."
+msgstr ""
+
+#: .\templates\doctors\doctor_list.html:28
+msgid "Shifokor rasmi"
+msgstr ""
+
+#: .\templates\doctors\doctor_list.html:36
+#, python-format
+msgid "%(years)s yillik tajriba"
+msgstr ""
+
+#: .\templates\doctors\doctor_list.html:66
+msgid "Hozircha shifokorlar haqida ma'lumot mavjud emas."
+msgstr ""
+
+#: .\templates\news\news_detail.html:17
+msgid "marta ko'rildi"
+msgstr ""
+
+#: .\templates\news\news_detail.html:34
+msgid "Kalit so'zlar"
+msgstr ""
+
+#: .\templates\news\news_detail.html:46
+msgid "Ulashish"
+msgstr ""
+
+#: .\templates\news\news_detail.html:53
+msgid "Barcha yangiliklarga qaytish"
+msgstr ""
+
+#: .\templates\news\news_list.html:18
+#: .\templates\publications\publication_list.html:18
+msgid "Kategoriyalar"
+msgstr ""
+
+#: .\templates\news\news_list.html:21
+msgid "Barcha yangiliklar"
+msgstr ""
+
+#: .\templates\news\news_list.html:39
+msgid "Yangilik rasmi yo`q"
+msgstr ""
+
+#: .\templates\news\news_list.html:57
+msgid "Hozircha yangiliklar mavjud emas."
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:16
+msgid "Muqova rasmi yo'q"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:28
+msgid "Yil"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:33
+msgid "Nashriyot"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:35
+msgid "marta yuklab olingan"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:41
+msgid "Qisqacha tavsif"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:48
+msgid "Faylni yuklab olish"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:52
+msgid "Yuklab olish"
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:56
+msgid "Faylni yuklab olish uchun yuqoridagi tugmani bosing."
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:60
+msgid "Ushbu nashr uchun yuklab olinadigan fayl mavjud emas."
+msgstr ""
+
+#: .\templates\publications\publication_detail.html:65
+msgid "Barcha nashrlarga qaytish"
+msgstr ""
+
+#: .\templates\publications\publication_list.html:12
+msgid ""
+"Kardiologiya sohasidagi so'nggi ilmiy maqolalar, tadqiqotlar va qo'llanmalar."
+msgstr ""
+
+#: .\templates\publications\publication_list.html:21
+msgid "Barcha nashrlar"
+msgstr ""
+
+#: .\templates\publications\publication_list.html:56
+msgid "yuklab olingan"
+msgstr ""
+
+#: .\templates\publications\publication_list.html:65
+msgid "Hozircha nashrlar mavjud emas."
+msgstr ""

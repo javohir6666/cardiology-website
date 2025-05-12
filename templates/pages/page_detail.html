@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ page.title }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="container mt-5 page-container">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            {# Agar sahifa sarlavhasini kontentdan alohida ko'rsatmoqchi bo'lsak #}
+            <header class="mb-4 text-center">
+                <h1 class="display-4 fw-bold page-main-title">{{ page.title }}</h1>
+                {# Bu yerga "non ushoqlari" (breadcrumbs) qo'shish mumkin #}
+            </header>
+            <hr class="mb-5" style="border-top: 2px solid var(--bs-primary);">
+
+            <article class="page-content">
+                {{ page.content|safe }} {# CKEditor'dan kelgan HTMLni xavfsiz chiqarish #}
+            </article>
+        </div>
+    </div>
+</div>
+
+<style>
+    .page-container {
+        /* Sahifaga xos umumiy stillar */
+    }
+    .page-main-title {
+        color: #343a40; /* Yoki kardiologiya mavzusiga mos rang */
+    }
+    .page-content img { /* Kontent ichidagi rasmlar uchun standart stil */
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.3rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    .page-content p {
+        line-height: 1.8;
+        text-align: justify; /* Matnni ikki tomonga tekislash */
+        margin-bottom: 1.25rem;
+    }
+    .page-content h2, .page-content h3, .page-content h4 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+        color: var(--bs-primary); /* Kardiologiya mavzusiga mos rang */
+    }
+    /* Boshqa maxsus stillarni shu yerga qo'shish mumkin */
+</style>
+{% endblock content %}
