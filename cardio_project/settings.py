@@ -43,10 +43,13 @@ INSTALLED_APPS = [
     'doctors.apps.DoctorsConfig',
     'publications.apps.PublicationsConfig',
     'pages.apps.PagesConfig',
-    'parler',
+    'modeltranslation',
+    'modeltranslation.admin',
     'django_ckeditor_5',
     'mptt',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,7 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
+                'django.template.context_processors.i18n'
                 'core.context_processors.main_menu_items', # Qo'shilgan kontekst protsessor
                 'core.context_processors.footer_menu_items',# Qo'shilgan kontekst protsessor
             ],
@@ -124,24 +127,27 @@ TIME_ZONE = 'Asia/Tashkent'
 from django.utils.translation import gettext_lazy as _
 
 # Saytda mavjud bo'ladigan tillar
-LANGUAGES = [
-    ('uz', _('Uzbek')),
-    ('ru', _('Russian')),
+LANGUAGES = (
+    ('uz', _("O'zbek")),
+    ('ru', _('Русский')),
     ('en', _('English')),
-]
+)
 
 # Standart til
-LANGUAGE_CODE = 'uz' # Yoki 'ru', 'en'
+LANGUAGE_CODE = 'uz'
+USE_I18N = True
+USE_L10N = True # Odatda True bo'ladi
+USE_TZ = True   # Vaqt mintaqalarini hisobga olish
 
 # Lokalizatsiya fayllari qayerda joylashishi
 LOCALE_PATHS = [
     BASE_DIR / 'locale', # Loyiha ildizida 'locale' papkasi
 ]
 
-USE_I18N = True # Xalqaro tillarni yoqish
-USE_L10N = True # Lokalizatsiyani yoqish (sana, raqam formatlari)
-USE_TZ = True   # Vaqt mintaqalarini hisobga olish
-
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
+MODELTRANSLATION_LANGUAGES = ('uz', 'ru', 'en')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('uz', 'ru', 'en')
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'uz'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -160,18 +166,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Django Parler sozlamalari
-PARLER_LANGUAGES = {
-    1: ( # SITE_ID ga mos kelishi kerak (odatda 1)
-        {'code': 'uz'}, # O'zbekcha
-        {'code': 'ru'}, # Ruscha
-        {'code': 'en'}, # Inglizcha
-    ),
-    'default': {
-        'fallback': 'uz',             # Agar biror tilda tarjima topilmasa, qaysi tilga qaytish
-        'hide_untranslated': False,   # Tarjima qilinmagan obyektlarni yashirish yoki ko'rsatish
-    }
-}
 
 # CKEditor 5 uchun sozlamalar
 CKEDITOR_5_CONFIGS = {

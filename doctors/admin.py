@@ -1,19 +1,23 @@
 from django.contrib import admin
-from parler.admin import TranslatableAdmin
+from modeltranslation.admin import TranslationAdmin
+from django import forms
+from django_ckeditor_5.widgets import CKEditor5Widget
 from .models import Doctor
 
-@admin.register(Doctor)
-class DoctorAdmin(TranslatableAdmin):
-    list_display = ('full_name', 'position', 'email', 'phone', 'is_active', 'order', 'all_languages_column')
-    list_filter = ('is_active', 'translations__position') # position tarjima qilingan maydon
-    search_fields = ('translations__full_name', 'translations__position', 'translations__bio', 'email', 'phone')
-    list_editable = ('order', 'is_active') # Ro'yxatdan turib o'zgartirish mumkin
+class DoctorAdminForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+        widgets = {
+            'bio_uz': CKEditor5Widget(),
+            'bio_ru': CKEditor5Widget(),
+            'bio_en': CKEditor5Widget(),
+        }
 
-    fieldsets = (
-        (None, {
-            'fields': ('full_name', 'position', 'photo', 'email', 'phone', 'experience_years', 'is_active', 'order')
-        }),
-        ('Biography (All Languages)', {
-            'fields': ('bio',)
-        }),
-    )
+@admin.register(Doctor)
+class DoctorAdmin(TranslationAdmin):
+    form = DoctorAdminForm
+    list_display = ('full_name', 'position', 'is_active', 'order')
+    search_fields = ('full_name', 'position')
+    list_filter = ('is_active',)
+    ordering = ('order', 'full_name')

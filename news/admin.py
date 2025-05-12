@@ -1,39 +1,40 @@
+# news/admin.py
+
 from django.contrib import admin
-from parler.admin import TranslatableAdmin # Ko'p tilli modellar uchun
-from django_ckeditor_5.fields import CKEditor5Field
-from .models import NewsCategory, News
+from django.conf import settings # settings.LANGUAGE_CODE ni olish uchun
+from django.utils.text import slugify
+from django import forms
+from django_ckeditor_5.widgets import CKEditor5Widget # Agar ishlatayotgan bo'lsangiz
+from modeltranslation.admin import TranslationAdmin
+from .models import News, NewsCategory
 
 @admin.register(NewsCategory)
-class NewsCategoryAdmin(TranslatableAdmin):
-    list_display = ('__str__', 'all_languages_column') # Kategoriya nomini va mavjud tillarni ko'rsatadi
-    # `all_languages_column` parler tomonidan taqdim etiladi
-    
-    # Slug avtomatik to'ldirilishi uchun (agar TranslatedFields ichida bo'lsa)
-    # Parler odatda o'zi buni yaxshi boshqaradi, lekin kerak bo'lsa:
-    # def get_prepopulated_fields(self, request, obj=None):
-    #     # Joriy til uchun slugni avtomatik to'ldirish
-    #     return {'slug': ('name',)} # Bu yerda 'name' translated field bo'lishi kerak
-    # Bu qismni parler o'zi hal qiladi, agar TranslatedFields to'g'ri sozlanagan bo'lsa
+class NewsCategoryAdmin(TranslationAdmin):
+    list_display = ('name', 'slug', 'created_at')
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+
+class NewsAdminForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = '__all__'
+        widgets = {
+            'content_uz': CKEditor5Widget(),
+            'content_ru': CKEditor5Widget(),
+            'content_en': CKEditor5Widget(),
+        }
 
 @admin.register(News)
-class NewsAdmin(TranslatableAdmin):
-    list_display = ('title', 'category', 'published_date', 'is_published', 'all_languages_column')
+class NewsAdmin(TranslationAdmin):
+    form = NewsAdminForm
+    list_display = ('title', 'slug', 'created_at', 'is_published')
     list_filter = ('is_published', 'category', 'published_date')
-    search_fields = ('translations__title', 'translations__content') # Tarjima qilingan maydonlar bo'yicha qidiruv
-    # `translations__` prefiksi bilan tarjima qilingan maydonlarga murojaat qilinadi
-
-    # Sarlavhadan slugni avtomatik to'ldirish (agar TranslatedFields ichida bo'lsa)
-    # def get_prepopulated_fields(self, request, obj=None):
-    # return {'slug': ('title',)} # Bu ham parler tomonidan boshqariladi
-    
+    search_fields = ('title', 'content')
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'category', 'image', 'is_published') # 'published_date' olib tashlandi
+            'fields': ('title', 'category', 'image', 'slug', 'is_published', 'published_date')
         }),
-        ('Content (All Languages)', { # Bu sarlavha admin panelida ko'rinadi
-            'fields': ('content', 'keywords') # Bu yerda 'content' va 'keywords' TranslatableFields
+        ('Content', {
+            'fields': ('content', 'keywords')
         }),
     )
-    readonly_fields = ('published_date',) # published_date faqat readonly_fields ichida
-    # CKEditor5Field uchun maxsus sozlash shart emas
-    # `content` maydoni avtomatik ravishda CKEditor bilan ko'rsatiladi, chunki modelda RichTextField ishlatilgan.

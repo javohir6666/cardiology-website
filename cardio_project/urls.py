@@ -7,8 +7,8 @@ from django.conf.urls.i18n import i18n_patterns # Ko'p tilli URLlar uchun
 
 urlpatterns = [
     path('ckeditor5/', include('django_ckeditor_5.urls')),  # CKEditor5 upload URL
-    path('admin/', include('admin_panel.urls', namespace='admin_panel')),
-    # path('admin/', admin.site.urls),
+    # path('admin/', include('admin_panel.urls', namespace='admin_panel')),
+    path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')), # Tilni o'zgartirish uchun standart URL
 ]
 
