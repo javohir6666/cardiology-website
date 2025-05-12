@@ -38,15 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'core.apps.CoreConfig',
-    'news.apps.NewsConfig',
-    'doctors.apps.DoctorsConfig',
-    'publications.apps.PublicationsConfig',
-    'pages.apps.PagesConfig',
-    'modeltranslation',
-    'modeltranslation.admin',
+    
+    'core',
+    'doctors',
+    'news',
+    'pages',
+    'publications',
+    
     'django_ckeditor_5',
     'mptt',
+    'modeltranslation',
+    # 'modeltranslation.admin',
 ]
 
 SITE_ID = 1
